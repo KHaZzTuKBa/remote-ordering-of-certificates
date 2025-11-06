@@ -1,4 +1,5 @@
-﻿using Infrastructure.Data;
+﻿using Application.Contracts;
+using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -21,6 +22,9 @@ namespace Infrastructure.DependencyInjection
                     b => b.MigrationsAssembly(typeof(ServiceContainer).Assembly.FullName)
                     ),
                 ServiceLifetime.Scoped);
+
+            services.AddScoped<IUser, UserRepo>();
+            services.AddScoped<IAdmin, AdminRepo>();
 
             return services;
         }
