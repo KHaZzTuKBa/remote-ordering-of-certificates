@@ -20,7 +20,7 @@ namespace WebAPI.Controllers
             this.configuration = configuration;
         }
 
-        [HttpGet("GetRequestAdmin")]
+        [HttpGet("GetRequest")]
         public async Task<ActionResult<AdminGetRequestResponse>> AdminGetRequest(AdminGetRequestDTO adminGetRequestDTO)
         {
             var result = await admin.AdminGetRequest(adminGetRequestDTO);
@@ -28,7 +28,7 @@ namespace WebAPI.Controllers
             return Ok(result);
         }
 
-        [HttpGet("GetRequestListAdmin")]
+        [HttpGet("GetRequestList")]
         public async Task<ActionResult<AdminGetRequestListResponse>> AdminGetRequestList(AdminGetRequestListDTO adminGetRequestListDTO)
         {
             var result = await admin.AdminGetRequestList(adminGetRequestListDTO);

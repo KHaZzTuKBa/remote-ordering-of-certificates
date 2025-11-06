@@ -19,6 +19,7 @@ namespace WebAPI.Controllers
             this.configuration = configuration;
         }
 
+        [HttpPost("CreateRequest")]
         public async Task<ActionResult<CreateRequestResponse>> CreateRequest(CreateRequestDTO createRequestDTO)
         {
             var result = user.CreateRequest (createRequestDTO);
@@ -26,6 +27,7 @@ namespace WebAPI.Controllers
             return Ok(result);
         }
 
+        [HttpPost("GetRequest")]
         public async Task<ActionResult<GetRequestResponse>> GetRequest(GetRequestDTO getRequestDTO)
         {
             var result = user.GetRequest(getRequestDTO);
@@ -33,6 +35,7 @@ namespace WebAPI.Controllers
             return Ok(result);
         }
 
+        [HttpPost("GetRequestList")]
         public async Task<ActionResult<GetRequestListResponse>> GetRequestList(GetRequestListDTO getRequestListDTO)
         {
             var result = user.GetRequestList(getRequestListDTO);
