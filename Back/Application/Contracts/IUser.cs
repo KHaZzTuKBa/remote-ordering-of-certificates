@@ -13,6 +13,6 @@ namespace Application.Contracts
     {
         Task<CreateRequestResponse> CreateRequest(CreateRequestDTO createRequestDTO);
         Task<GetRequestListResponse> GetRequestList(GetRequestListDTO getRequestListDTO);
-        Task<GetRequestResponse > GetResponseList(GetRequestListDTO getRequestListDTO);
+        Task<GetRequestResponse> GetRequest(GetRequestDTO getRequestDTO);
     }
 }

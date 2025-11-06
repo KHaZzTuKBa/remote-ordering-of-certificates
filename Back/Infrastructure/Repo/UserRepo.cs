@@ -33,7 +33,7 @@ namespace Infrastructure.Repo
             throw new NotImplementedException();
         }
 
-        public Task<GetRequestResponse> GetResponseList(GetRequestListDTO getRequestListDTO)
+        public Task<GetRequestResponse> GetReques(GetRequestDTO getRequestDTO)
         {
             throw new NotImplementedException();
         }
