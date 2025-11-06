@@ -1,4 +1,5 @@
 ﻿using Domain.Enums;
+using Domain.Models;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
@@ -12,10 +13,11 @@ namespace Application.DTOs.Admin.UpdateFrom1c
     public class UpdateFrom1cDTO
     {
         [Required]
-        public Guid RequestID { get; set; } = default!;
+        public List<OneCRequest> Requests { get; set; } = default!; 
+        /*public Guid RequestID { get; set; } = default!;
         [Required]
         public OneCStatus Status { get; set; } = default!;
         [Required]
-        public IFormFile? requestFile { get; set; } = default!;
+        public IFormFile? requestFile { get; set; } = default!;*/
     }
 }

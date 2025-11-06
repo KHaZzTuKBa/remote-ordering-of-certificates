@@ -22,23 +22,23 @@ namespace WebAPI.Controllers
         [HttpPost("CreateRequest")]
         public async Task<ActionResult<CreateRequestResponse>> CreateRequest(CreateRequestDTO createRequestDTO)
         {
-            var result = user.CreateRequest (createRequestDTO);
+            var result = await user.CreateRequest (createRequestDTO);
 
             return Ok(result);
         }
 
-        [HttpPost("GetRequest")]
+        [HttpGet("GetRequest")]
         public async Task<ActionResult<GetRequestResponse>> GetRequest(GetRequestDTO getRequestDTO)
         {
-            var result = user.GetRequest(getRequestDTO);
+            var result = await user.GetRequest(getRequestDTO);
 
             return Ok(result);
         }
 
-        [HttpPost("GetRequestList")]
+        [HttpGet("GetRequestList")]
         public async Task<ActionResult<GetRequestListResponse>> GetRequestList(GetRequestListDTO getRequestListDTO)
         {
-            var result = user.GetRequestList(getRequestListDTO);
+            var result = await user.GetRequestList(getRequestListDTO);
 
             return Ok(result);
         }

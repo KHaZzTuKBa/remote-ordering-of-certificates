@@ -9,7 +9,7 @@ namespace Application.Contracts
     {
         Task<AdminGetRequestResponse> AdminGetRequest(AdminGetRequestDTO adminGetRequestDTO);
         Task<AdminGetRequestListResponse> AdminGetRequestList(AdminGetRequestListDTO adminGetRequestListDTO);
-        Task<SubmitTo1cResponse> SubmitTo1C(SubmitTo1cDTO submitTo1cDTO);
+        Task<RequestsResponse> SendRequestsTo1C(RequestsDTO requestsDTO);
         Task<UpdateFrom1cResponse> UpdateFrom1C (UpdateFrom1cDTO updateFrom1cDTO);
     }
 }

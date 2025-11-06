@@ -34,7 +34,7 @@ namespace Infrastructure.Repo
             throw new NotImplementedException();
         }
 
-        public Task<SubmitTo1cResponse> SubmitTo1C(SubmitTo1cDTO submitTo1cDTO)
+        public Task<RequestsResponse> SendRequestsTo1C(RequestsDTO requestsDTO)
         {
             throw new NotImplementedException();
         }

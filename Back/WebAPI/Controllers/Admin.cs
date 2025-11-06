@@ -36,9 +36,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("SubmitTo1C")]
-        public async Task<ActionResult<SubmitTo1cResponse>> SubmitTo1C(SubmitTo1cDTO submitTo1c)
+        public async Task<ActionResult<RequestsResponse>> SubmitTo1C(RequestsDTO requestsDTO)
         {
-            var result = await admin.SubmitTo1C(submitTo1c);
+            var result = await admin.SendRequestsTo1C(requestsDTO);
             return Ok(result);
         }
 

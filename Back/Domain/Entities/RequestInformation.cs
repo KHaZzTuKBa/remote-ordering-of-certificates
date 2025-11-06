@@ -7,8 +7,8 @@ namespace Domain.Entities
     {
         public Guid Id { get; set; }
         public string Name { get; set; } = default!;
-        public RequestStatus requestStatus { get; set; } = default!;
-        public DateTime date { get; set; } = default!;
-        public IFormFile? requestFile { get; set; } = default!;
+        public RequestStatus FullRequestStatus { get; set; } = default!;
+        public DateTime Date { get; set; } = default!;
+        public string FilePath { get; set; } = default!;
     }
 }
