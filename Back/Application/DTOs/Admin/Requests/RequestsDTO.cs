@@ -7,9 +7,7 @@ using System.Threading.Tasks;
 
 namespace Application.DTOs.Admin.SubmitTo1c
 {
-    public class SubmitTo1cDTO
+    public class RequestsDTO
     {
-        [Required]
-        public Guid RequestID { get; set; } = default!;
     }
 }
