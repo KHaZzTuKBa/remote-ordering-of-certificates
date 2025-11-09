@@ -1,0 +1,10 @@
+.git
+.gitignore
+*.md
+.env
+.DS_Store
+Thumbs.db
+node_modules
+dist
+.angular
+
