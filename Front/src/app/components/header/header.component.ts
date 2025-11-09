@@ -38,7 +38,7 @@ import { RouterLink } from "@angular/router";
                 <!-- Логотип в центре -->
                 <div class="header-logo">
                     <img
-                        src="assets/images/logo.png"
+                        src="assets/images/logo.svg"
                         alt="Удаленный заказ справок"
                         class="logo-image"
                     />
