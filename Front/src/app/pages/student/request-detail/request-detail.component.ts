@@ -4,6 +4,7 @@ import { ActivatedRoute, RouterLink } from "@angular/router";
 import { UserService } from "../../../services/user.service";
 import { RequestInformation } from "../../../models/request-information.model";
 import { RequestStatus } from "../../../models/request-status.enum";
+import { ReceivingFormat } from "../../../models/receiving-format.enum";
 import { HeaderComponent } from "../../../components/header/header.component";
 
 @Component({
@@ -56,6 +57,13 @@ import { HeaderComponent } from "../../../components/header/header.component";
                         <div class="detail-label">Статус:</div>
                         <div class="detail-value">
                             {{ getStatusText(requestInfo.fullRequestStatus) }}
+                        </div>
+                    </div>
+
+                    <div class="detail-section">
+                        <div class="detail-label">Формат получения:</div>
+                        <div class="detail-value">
+                            {{ getReceivingFormatText(requestInfo.receivingFormat) }}
                         </div>
                     </div>
 
@@ -132,5 +140,13 @@ export class RequestDetailComponent implements OnInit {
             Rejected: "Отклонена",
         };
         return statusMap[status] || status;
+    }
+
+    getReceivingFormatText(format: ReceivingFormat): string {
+        const formatMap: { [key: string]: string } = {
+            InPerson: "Очно",
+            Remotely: "Электронно",
+        };
+        return formatMap[format] || format;
     }
 }

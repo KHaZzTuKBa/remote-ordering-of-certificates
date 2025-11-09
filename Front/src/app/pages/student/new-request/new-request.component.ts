@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { UserService } from '../../../services/user.service';
 import { CreateRequestDTO } from '../../../models/create-request-dto.model';
 import { HeaderComponent } from '../../../components/header/header.component';
+import { ReceivingFormat } from '../../../models/receiving-format.enum';
 
 @Component({
   selector: 'app-new-request',
@@ -91,10 +92,16 @@ export class NewRequestComponent {
     this.isSubmitting = true;
     this.errorMessage = '';
 
+    // Преобразуем строковое значение формата в enum
+    const receivingFormat = this.format === 'Очно' 
+      ? ReceivingFormat.InPerson 
+      : ReceivingFormat.Remotely;
+
     const dto: CreateRequestDTO = {
       studentId: this.studentId,
       fullName: this.fullName,
-      course: this.course
+      course: this.course,
+      receivingFormat: receivingFormat
     };
 
     this.userService.createRequest(dto).subscribe({
