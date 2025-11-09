@@ -10,5 +10,6 @@ namespace Domain.Entities
         public RequestStatus FullRequestStatus { get; set; } = default!;
         public DateTime Date { get; set; } = default!;
         public string FilePath { get; set; } = default!;
+        public ReceivingFormat receivingFormat { get; set; }
     }
 }

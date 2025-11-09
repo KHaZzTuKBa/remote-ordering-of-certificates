@@ -8,5 +8,6 @@ namespace Domain.Models
         public RequestStatus requestStatus { get; set; }
 
         public DateTime date {  get; set; }
+        public ReceivingFormat receivingFormat { get; set; }
     }
 }

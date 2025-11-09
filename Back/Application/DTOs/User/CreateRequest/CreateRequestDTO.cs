@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Enums;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -15,5 +16,7 @@ namespace Application.DTOs.User.CreateRequest
         public string FullName { get; set; } = default!;
         [Required]
         public int Course { get; set; } = default!;
+        [Required]
+        public ReceivingFormat receivingFormat { get; set; } = default!;
     }
 }
