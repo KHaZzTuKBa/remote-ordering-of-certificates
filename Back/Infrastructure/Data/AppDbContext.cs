@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Infrastructure.Data
 {
-    internal class AppDbContext : DbContext
+    public class AppDbContext : DbContext
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
@@ -33,8 +33,7 @@ namespace Infrastructure.Data
                   .IsRequired();
 
             entity.Property(r => r.FilePath)
-                  .HasMaxLength(512)
-                  .IsRequired();
+                  .HasMaxLength(512);
 
             entity.Property(r => r.FullRequestStatus)
                   .HasConversion<string>()
