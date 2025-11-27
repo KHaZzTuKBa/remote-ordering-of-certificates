@@ -19,7 +19,7 @@ namespace Infrastructure.Migrations
                     Name = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
                     FullRequestStatus = table.Column<string>(type: "character varying(32)", maxLength: 32, nullable: false),
                     Date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    FilePath = table.Column<string>(type: "character varying(512)", maxLength: 512, nullable: false),
+                    FilePath = table.Column<string>(type: "character varying(512)", maxLength: 512, nullable: true),
                     receivingFormat = table.Column<string>(type: "character varying(32)", maxLength: 32, nullable: false)
                 },
                 constraints: table =>
