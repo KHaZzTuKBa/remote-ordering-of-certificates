@@ -28,7 +28,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("GetRequest")]
-        public async Task<ActionResult<GetRequestResponse>> GetRequest(GetRequestDTO getRequestDTO)
+        public async Task<ActionResult<GetRequestResponse>> GetRequest([FromQuery] GetRequestDTO getRequestDTO)
         {
             var result = await user.GetRequest(getRequestDTO);
 
@@ -36,7 +36,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("GetRequestList")]
-        public async Task<ActionResult<GetRequestListResponse>> GetRequestList(GetRequestListDTO getRequestListDTO)
+        public async Task<ActionResult<GetRequestListResponse>> GetRequestList([FromQuery] GetRequestListDTO getRequestListDTO)
         {
             var result = await user.GetRequestList(getRequestListDTO);
 
