@@ -87,9 +87,13 @@ namespace Infrastructure.Repo
             return new GetRequestListResponse(requests);
         }
 
-        public Task<GetRequestResponse> GetRequest(GetRequestDTO getRequestDTO)
+        public async Task<GetRequestResponse> GetRequest(GetRequestDTO getRequestDTO)
         {
-            throw new NotImplementedException();
+            var requestInfo = await FindRequestById(getRequestDTO.RequestID);
+
+            if (requestInfo == null) return new GetRequestResponse(null);
+
+            return new GetRequestResponse(requestInfo);
         }
 
         private async Task<List<Guid>> FindRequestIdsByStudentId(int studentId) =>
