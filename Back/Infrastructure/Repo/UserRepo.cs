@@ -4,11 +4,14 @@ using Application.DTOs.User.GetRequest;
 using Application.DTOs.User.GetRequestList;
 using Domain.Entities;
 using Domain.Enums;
+using Domain.Models;
 using Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -51,14 +54,57 @@ namespace Infrastructure.Repo
             return new CreateRequestResponse("Заявка передана в работу");
         }
 
-        public Task<GetRequestListResponse> GetRequestList(GetRequestListDTO getRequestListDTO)
+        public async Task<GetRequestListResponse> GetRequestList(GetRequestListDTO getRequestListDTO)
         {
-            throw new NotImplementedException();
+            var requestsIds = await FindRequestIdsByStudentId(getRequestListDTO.StudentId);
+
+            var requests = new List<Request>(0);
+
+            if (requestsIds.Count == 0 || requestsIds == null) 
+            {
+                return new GetRequestListResponse(requests);
+            }
+
+            foreach (var requestId in requestsIds)
+            {
+                var requestInfo = await FindRequestById(requestId);
+
+                if (requestInfo != null)
+                {
+
+                    var requestModel = new Request()
+                    {
+                        Id = requestInfo.Id,
+                        requestStatus = requestInfo.FullRequestStatus,
+                        date = requestInfo.Date,
+                        receivingFormat = requestInfo.receivingFormat
+                    };
+
+                    requests.Add(requestModel);
+                }
+            }
+
+            return new GetRequestListResponse(requests);
         }
 
         public Task<GetRequestResponse> GetRequest(GetRequestDTO getRequestDTO)
         {
             throw new NotImplementedException();
         }
+
+        private async Task<List<Guid>> FindRequestIdsByStudentId(int studentId) =>
+            await appDbContext.StudentRequests
+            .Where(sr => sr.StudentId == studentId)
+            .Select(sr => sr.RequestId)
+            .ToListAsync();
+
+        private async Task<List<Guid>> FindRequestsByRequestsIds(int studentId) =>
+            await appDbContext.StudentRequests
+            .Where(sr => sr.StudentId == studentId)
+            .Select(sr => sr.RequestId)
+            .ToListAsync();
+
+        private async Task<RequestInformation?> FindRequestById(Guid Id) =>
+            await appDbContext.RequestsInfo.FirstOrDefaultAsync(r => r.Id == Id);
     }
 }
