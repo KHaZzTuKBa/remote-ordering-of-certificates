@@ -9,7 +9,7 @@ namespace Infrastructure.Data
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
         public DbSet<RequestInformation> RequestsInfo { get; set; }
-        public DbSet<StudentRequest> StudentRequest { get; set; }
+        public DbSet<StudentRequest> StudentRequests { get; set; }
 
         /// <summary>
         /// Явно настраиваем EF Core-модель, чтобы БД отражала доменные требования.
