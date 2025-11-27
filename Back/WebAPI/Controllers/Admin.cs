@@ -21,7 +21,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("GetRequest")]
-        public async Task<ActionResult<AdminGetRequestResponse>> AdminGetRequest(AdminGetRequestDTO adminGetRequestDTO)
+        public async Task<ActionResult<AdminGetRequestResponse>> AdminGetRequest([FromQuery] AdminGetRequestDTO adminGetRequestDTO)
         {
             var result = await admin.AdminGetRequest(adminGetRequestDTO);
 
@@ -29,7 +29,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("GetRequestList")]
-        public async Task<ActionResult<AdminGetRequestListResponse>> AdminGetRequestList(AdminGetRequestListDTO adminGetRequestListDTO)
+        public async Task<ActionResult<AdminGetRequestListResponse>> AdminGetRequestList([FromQuery] AdminGetRequestListDTO adminGetRequestListDTO)
         {
             var result = await admin.AdminGetRequestList(adminGetRequestListDTO);
             return Ok(result);
