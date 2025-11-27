@@ -2,6 +2,8 @@
 using Application.DTOs.User.CreateRequest;
 using Application.DTOs.User.GetRequest;
 using Application.DTOs.User.GetRequestList;
+using Domain.Entities;
+using Domain.Enums;
 using Infrastructure.Data;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -23,9 +25,30 @@ namespace Infrastructure.Repo
             this.configuration = configuration;
         }
 
-        public Task<CreateRequestResponse> CreateRequest(CreateRequestDTO createRequestDTO)
+        public async Task<CreateRequestResponse> CreateRequest(CreateRequestDTO createRequestDTO)
         {
-            throw new NotImplementedException();
+            var requestInformation = new RequestInformation()
+            {
+                Name = createRequestDTO.FullName,
+                FullRequestStatus = RequestStatus.New,
+                Date = DateTime.UtcNow,
+                FilePath = null,
+                receivingFormat = createRequestDTO.receivingFormat
+            };
+
+            await appDbContext.RequestsInfo.AddAsync(requestInformation);
+            await appDbContext.SaveChangesAsync();
+
+            var strudentRequst = new StudentRequest()
+            {
+                StudentId = createRequestDTO.StudentId,
+                RequestId = requestInformation.Id
+            };
+
+            await appDbContext.StudentRequests.AddAsync(strudentRequst);
+            await appDbContext.SaveChangesAsync();
+
+            return new CreateRequestResponse("Заявка передана в работу");
         }
 
         public Task<GetRequestListResponse> GetRequestList(GetRequestListDTO getRequestListDTO)
