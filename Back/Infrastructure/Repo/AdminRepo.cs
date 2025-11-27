@@ -29,11 +29,16 @@ namespace Infrastructure.Repo
             this.configuration = configuration;
         }
 
-        public Task<AdminGetRequestResponse> AdminGetRequest(AdminGetRequestDTO adminGetRequestDTO)
+        public async Task<AdminGetRequestResponse> AdminGetRequest(AdminGetRequestDTO adminGetRequestDTO)
         {
-            throw new NotImplementedException();
+            var requestInfo = await FindRequestById(adminGetRequestDTO.RequestID);
+
+            if (requestInfo == null) return new AdminGetRequestResponse(null);
+
+            return new AdminGetRequestResponse(requestInfo);
         }
 
+        public async Task<AdminGetRequestListResponse> AdminGetRequestList(AdminGetRequestListDTO adminGetRequestListDTO)
         {
             var requestsIds = await FindRequestIdsByStudentId(adminGetRequestListDTO.StudentId);
 
