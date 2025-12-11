@@ -6,6 +6,7 @@ using Application.DTOs.Admin.UpdateFrom1c;
 using Application.DTOs.User.GetRequest;
 using Application.DTOs.User.GetRequestList;
 using Domain.Entities;
+using Domain.Enums;
 using Domain.Models;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
@@ -71,9 +72,23 @@ namespace Infrastructure.Repo
             return new AdminGetRequestListResponse(requests);
         }
 
-        public Task<RequestsResponse> SendRequestsTo1C(RequestsDTO requestsDTO)
+        public async Task<RequestsResponse> SendRequestsTo1C(RequestsDTO requestsDTO)
         {
-            throw new NotImplementedException();
+            var newRequests = await FindNewRequests();
+
+            if (newRequests.Count == 0)
+            {
+                return new RequestsResponse(newRequests);
+            }
+
+            foreach (var request in newRequests)
+            {
+                request.FullRequestStatus = RequestStatus.Processing;
+            }
+
+            await appDbContext.SaveChangesAsync();
+
+            return new RequestsResponse(newRequests);
         }
 
         public Task<UpdateFrom1cResponse> UpdateFrom1C(UpdateFrom1cDTO updateFrom1cDTO)
@@ -95,5 +110,10 @@ namespace Infrastructure.Repo
 
         private async Task<RequestInformation?> FindRequestById(Guid Id) =>
             await appDbContext.RequestsInfo.FirstOrDefaultAsync(r => r.Id == Id);
+
+        private async Task<List<RequestInformation>> FindNewRequests() =>
+            await appDbContext.RequestsInfo
+                .Where(r => r.FullRequestStatus == RequestStatus.New)
+                .ToListAsync();
     }
 }
