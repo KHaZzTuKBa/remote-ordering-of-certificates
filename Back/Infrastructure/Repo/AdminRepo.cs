@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -91,9 +92,42 @@ namespace Infrastructure.Repo
             return new RequestsResponse(newRequests);
         }
 
-        public Task<UpdateFrom1cResponse> UpdateFrom1C(UpdateFrom1cDTO updateFrom1cDTO)
+        public async Task<UpdateFrom1cResponse> UpdateFrom1C(UpdateFrom1cDTO updateFrom1cDTO)
         {
-            throw new NotImplementedException();
+            var uploadRoot = Path.Combine(Directory.GetCurrentDirectory(), "Uploads");
+            Directory.CreateDirectory(uploadRoot);
+
+            foreach (var oneCRequest in updateFrom1cDTO.Requests)
+            {
+                var requestInfo = await FindRequestById(oneCRequest.Id);
+
+                if (requestInfo == null)
+                {
+                    continue;
+                }
+
+                if (oneCRequest.requestFile == null)
+                {
+                    requestInfo.FullRequestStatus = RequestStatus.Rejected;
+                    continue;
+                }
+
+                var safeFileName = Path.GetFileName(oneCRequest.requestFile.FileName);
+                var fileName = $"{oneCRequest.Id}_{DateTime.UtcNow:yyyyMMddHHmmssfff}_{safeFileName}";
+                var filePath = Path.Combine(uploadRoot, fileName);
+
+                using (var stream = File.Create(filePath))
+                {
+                    await oneCRequest.requestFile.CopyToAsync(stream);
+                }
+
+                requestInfo.FullRequestStatus = RequestStatus.Completed;
+                requestInfo.FilePath = filePath;
+            }
+
+            await appDbContext.SaveChangesAsync();
+
+            return new UpdateFrom1cResponse();
         }
 
         private async Task<List<Guid>> FindRequestIdsByStudentId(int studentId) =>
